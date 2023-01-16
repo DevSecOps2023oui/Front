@@ -82,3 +82,13 @@ Version 1.2.2 - Outils d'accès à l'API
 ### react-google-charts
 
 Version 4.0.0 - Outils d'affichage des graphes
+
+# Initialisation 
+
+### `npm i`
+
+Pour installer les dépendances
+
+### `npm start`
+
+Pour lancer le projet
