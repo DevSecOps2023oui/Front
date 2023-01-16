@@ -68,3 +68,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Dépendences
+
+### react
+
+Version 18.2.0
+
+### axios
+
+Version 1.2.2 - Outils d'accès à l'API
+
+### react-google-charts
+
+Version 4.0.0 - Outils d'affichage des graphes
