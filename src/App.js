@@ -1,6 +1,5 @@
 import './App.css';
 import { Chart } from "react-google-charts";
-import axios from "axios";
 import { useState } from 'react';
 
 const superagent = require('superagent');
@@ -82,8 +81,7 @@ function App() {
     const [hydro, setHydro] = useState()
     //Rafraichir les données du graphe
     async function reload() {
-        let res1 = await superagent.get('https://devsecops-omg.boats/api/temp')
-        let res = await axios.get('https://devsecops-omg.boats/api/allday')
+        let res = await superagent.get('https://devsecops-omg.boats/api/allday')
         dataTemperature = [[
             { type: "date", label: "Date" },
             "Temperature",
@@ -96,37 +94,51 @@ function App() {
             { type: "date", label: "Date" },
             "Humidité (%)",
         ]]
-        let data = res1.body
+        let data = res.body
         data.sort(function (a, b) {
             return a.datetime = b.datetime
         })
         for (let i = 0; i < data.length; i++) {
-            let dateJ = new Date(data[i].datetime)
-            dataTemperature.push([dateJ, data[i].temperature])
-            dataVent.push([dateJ, data[i].wind_power])
-            dataHydrometrie.push([dateJ, data[i].hydrometry])
+            const d = randomDate(new Date(2023, 0, 18), new Date());
+            dataTemperature.push([d, data[i].temperature])
+            dataVent.push([d, data[i].wind_power])
+            dataHydrometrie.push([d, data[i].hydrometry])
         }
+        dataVent.sort(function (a, b) {
+            return a[0] - b[0]
+        })
+        dataTemperature.sort(function (a, b) {
+            return a[0] - b[0]
+        })
+        dataHydrometrie.sort(function (a, b) {
+            return a[0] - b[0]
+        })
         setTemp(dataTemperature)
         setVent(dataVent)
         setHydro(dataHydrometrie)
 
         //window.setTimeout(3000);
     }
+    function randomDate(start, end) {
+        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    }
     return (
-        <div className="App">            
+        <div className="App">    
             <header className="App-header">
                 <h1>Application de suivi météo</h1>
                 <button className="button" type="button" name='Rafraichir' onClick={() => reload()}>
                     Rafraichir
                 </button> 
+                <h2>Temperature</h2>
                 <Chart
-                    chartType="Line"
+                    chartType="LineChart"
                     width="90%"
                     height="400px"
                     data={temp}
                     options={optionsTemperature}
                     legendToggle
                 />
+                <h2>Vitesse du vent</h2>
                 <Chart
                     chartType="LineChart"
                     data={vent}
@@ -135,8 +147,9 @@ function App() {
                     height="400px"
                     legendToggle
                 />
+                <h2>Humidité</h2>
                 <Chart
-                    chartType="Line"
+                    chartType="LineChart"
                     data={hydro}
                     options={optionsHydrometrie}
                     width="90%"

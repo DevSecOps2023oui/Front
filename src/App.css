@@ -74,8 +74,8 @@
   transform: translateY(2px);
 }
 
-.toto{
-  margin-bottom: 5px;
+div [id *= 'reactgooglegraph'] {
+  margin: auto;
 }
 
 @keyframes App-logo-spin {
