@@ -81,7 +81,7 @@ function App() {
     const [hydro, setHydro] = useState()
     //Rafraichir les données du graphe
     async function reload() {
-        let res = await superagent.get('https://devsecops-omg.boats/api/allday')
+        let res = await superagent.get('https://devsecops-omg.boats/api/all')
         dataTemperature = [[
             { type: "date", label: "Date" },
             "Temperature",
